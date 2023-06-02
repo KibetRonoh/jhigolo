@@ -1,0 +1,1545 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="all all-body">
+
+<div class="contentwrapper">
+	<div class="body">
+		<div class="bodybox profile-page singlePage">
+			<div class="fixBotWidget">
+								<div class="linkWrap">
+					<a class="eachLink" href="https://wa.me/+2540700112233?text=Hi%2C+I+saw+your+profile+on+https%3A%2F%2Fwww.eldoretraha.com">Whatsapp</a>
+					<a class="eachLink" href="sms:++2540700112233?&amp;body=I%20saw%20your%20advert%20on%20Exotic.%20Are%20you%20available">Sms</a>
+					<a class="eachLink" href="tel:+2540700112233">Call</a>
+				</div>
+			</div>
+
+
+
+
+			<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				//add or remove from favorites
+				$('.favbutton').on('click', function(){
+					var escortid = $(this).attr('id');
+					$('.favbutton').toggle();
+					$.ajax({
+						type: "GET",
+						url: "https://www.eldoretraha.com/wp-content/themes/escortwpdev/ajax/add-remove-favorites.php",
+						data: "id=" + escortid
+					});
+				});
+
+				$('.addreview-button').on('click', function(){
+					$('.addreviewform').slideDown("slow");
+					$('.addreview').slideUp("slow");
+					$('html,body').animate({ scrollTop: $('.addreviewform').offset().top }, { duration: 'slow', easing: 'swing'});
+				});
+			    if(window.location.hash == "#addreview") {
+					// $('.addreviewform, .addreview').slideToggle("slow");
+					$('html,body').animate({ scrollTop: $('#addreviewsection').offset().top }, { duration: 'slow', easing: 'swing'});
+				}
+				$('.addreviewform .closebtn').on('click', function(){
+					$('.addreviewform, .addreview').slideToggle("slow");
+				});
+
+				count_review_text('#reviewtext');
+				$("#reviewtext").keyup(function() {
+					count_review_text($(this));
+				});
+				function count_review_text(t) {
+					if (!$(t).length) {
+						return false;
+					}
+					var charlimit = 1000;
+					var box = $(t).val();
+					var main = box.length * 100;
+					var value = (main / charlimit);
+					var count = charlimit - box.length;
+					var boxremove = box.substring(0, charlimit);
+					var ourtextarea = $(t);
+
+					$('.charcount').show('slow');
+					if(box.length <= charlimit) {
+						$('#count').html(count);
+						$("#reviewtext")
+						$('#bar').animate( {
+							"width": value+'%',
+						}, 1);
+					} else {
+						$('#reviewtext').val(boxremove);
+			            ourtextarea.scrollTop(
+			                ourtextarea[0].scrollHeight - ourtextarea.height()
+			            );
+					}
+					return false;
+				}
+
+				$('.sendemail').on('click', function(){
+					$('.escortcontact').slideToggle("slow");
+					$(this).slideToggle("slow");
+				});
+			    if(window.location.hash == "#contactform") {
+					$('html,body').animate({ scrollTop: $('.escortcontact').offset().top }, { duration: 'slow', easing: 'swing'});
+				}
+				$('.escortcontact .closebtn').on('click', function(){
+					$('.escortcontact').slideToggle("slow");
+					$('.sendemail').slideToggle("slow");
+				});
+
+
+							});
+			</script>
+			<script type="text/javascript">
+jQuery(document).ready(function($) {
+	// Photo upload START
+		// if images are dragged in the upload images div
+		var obj = $(".profile-page-no-photos");
+		// if images are dragged outside the upload images div
+		$(document).on('dragenter', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			obj.css('border-color', '#41c7f9'); //blue
+		});
+		$(document).on('dragover', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			obj.css('border-color', '#41c7f9'); //blue
+		});
+		$(document).on('drop', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			obj.css('border-color', '#ff0000');
+		});
+
+		obj.on('dragenter', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).css('border-color', '#3FC380'); // blue
+		});
+		obj.on('dragover', function (e)  {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).css('border-color', '#3FC380'); // blue
+		});
+		obj.on('drop', function (e)  {
+			e.preventDefault();
+			$(this).css('border-color', '#3FC380'); // green
+		});
+
+		$('.profile-page-no-photos-click').on('click', function(event) {
+			if(20 > 0) {
+				$('.profile_photos_button_container input[type="file"]').last().trigger('click');
+			} else {
+				$('.profile-page-no-photos').html("<p>You can't upload anymore photos</p>");
+			}
+		});
+
+	    $('#profile_photos_upload').uploadifive({
+			'auto'           : true,
+			'debug'          : true,
+			'buttonClass'    : 'pinkbutton rad25',
+			'buttonText'     : "Upload images",
+			'fileSizeLimit'  : '5MB',
+	        'fileType'       : 'image/*',
+	        'formData'       : { 'folder' : 'a6e4d01c494342b8cd3654810615ddf2' },
+			'multi'          : true,
+			'queueID'        : 'profile-page-no-photos',
+			'queueSizeLimit' : 20,
+			'removeCompleted': true,
+			'simUploadLimit' : 10,
+			'uploadLimit'    : 20,
+			'uploadScript'   : 'https://www.eldoretraha.com/wp-content/themes/escortwpdev/register-independent-upload-photos-process.php',
+			'onQueueComplete': function(data) {
+				$('.profile-page-no-photos').html('<p>' + data.successful + ' images have been uploaded.<br /><'+'a href="https://www.eldoretraha.com/escort/b-nyaboe/">Refresh the page to see them<'+'/a><br /><small>Refreshing the page automatically in 2 seconds.</small><'+'/p>').css('cursor', 'default').removeClass('profile-page-no-photos-click');
+				setTimeout(location.reload(), 2000);
+			}
+		});
+	// Photo upload END
+
+
+	// Video upload START
+		var video = $(".profile-page-no-videos");
+		//if videos are dragged outside the upload videos div
+		$(document).on('dragenter', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			video.css('border-color', '#41c7f9'); //blue
+		});
+		$(document).on('dragover', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			video.css('border-color', '#41c7f9'); //blue
+		});
+		$(document).on('drop', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			video.css('border-color', '#ff0000');
+		});
+
+		video.on('dragenter', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).css('border-color', '#3FC380'); // blue
+		});
+		video.on('dragover', function (e)  {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).css('border-color', '#3FC380'); // blue
+		});
+		video.on('drop', function (e)  {
+			e.preventDefault();
+			$(this).css('border-color', '#3FC380'); // green
+		});
+
+		$('.profile-page-no-videos-click').on('click', function(event) {
+			if(2 > 0) {
+				$('.profile_videos_button_container input[type="file"]').last().trigger('click');
+			} else {
+				$('.profile-page-no-videos').html("<p>You can't upload anymore videos</p>");
+			}
+		});
+
+	    $('#profile_videos_upload').uploadifive({
+			'auto'           : true,
+			'debug'          : true,
+			'buttonClass'    : 'pinkbutton rad25',
+			'buttonText'     : "Upload videos",
+			'fileSizeLimit'  : '20MB',
+	        'fileType'       : 'video/*',
+	        'formData'       : { 'folder' : 'a6e4d01c494342b8cd3654810615ddf2' },
+			'multi'          : true,
+			'queueID'        : 'profile-page-no-videos',
+			'queueSizeLimit' : 2,
+			'removeCompleted': true,
+			'simUploadLimit' : 2,
+			'uploadLimit'    : 2,
+			'uploadScript'   : 'https://www.eldoretraha.com/wp-content/themes/escortwpdev/register-independent-upload-videos-process.php',
+			'onQueueComplete': function(data) {
+				$('.profile-page-no-videos').html('<p>' + data.successful + ' videos have been uploaded.<br /><'+'a href="https://www.eldoretraha.com/escort/b-nyaboe/">Refresh the page to see them<'+'/a><br /><small>Refreshing the page automatically in 2 seconds.</small><'+'/p>').css('cursor', 'default').removeClass('profile-page-no-videos-click');
+				setTimeout(location.reload(), 2000);
+			},
+			'onProgress'     : function (file, e) {
+	            if (e.lengthComputable) {
+	                var percent = Math.round((e.loaded / e.total) * 100);
+	                if(percent > 97) {
+	                	percent = 97;
+	                }
+	            }
+	            file.queueItem.find('.fileinfo').html(' - ' + percent + '%');
+	            file.queueItem.find('.progress-bar').css('width', percent + '%');
+			}
+		});
+	// Video upload END
+
+
+	// delete verified status image
+	$('.verified_status_images .girl span i').on('click', function(){
+		var img = $(this).text();
+		var arr = img.split('.');
+		var imgid = arr[0] + arr[1];
+		$(this).parents('.girl').fadeOut("slow");
+		$.ajax({
+			type: "GET",
+			url: "https://www.eldoretraha.com/wp-content/themes/escortwpdev/ajax/delete-verified-status-image.php",
+			data: "id=" + arr[0],
+			success: function(data){
+				$('.image_msg').html(data).fadeIn("slow").delay(1000).fadeOut("slow");
+			}
+		});
+	});
+
+	$("a[rel=verified_status_img]").fancybox();
+
+    $('#file_upload_verify').uploadifive({
+		'auto'           : true,
+		'buttonClass'    : 'pinkbutton rad25',
+		'buttonText'     : "Upload image",
+		'fileSizeLimit'  : '5MB',
+        'fileType'       : 'image/*',
+        'formData'       : { 'folder' : 'a6e4d01c494342b8cd3654810615ddf2' },
+		'multi'          : false,
+		'queueID'        : 'upload-queue-verified-status',
+		'queueSizeLimit' : 1,
+		'removeCompleted': true,
+		'simUploadLimit' : 1,
+		'uploadLimit'    : 100,
+		'uploadScript'   : 'https://www.eldoretraha.com/wp-content/themes/escortwpdev/register-independent-verified-status-process.php',
+		'onQueueComplete': function(data) {
+			$('#status-message-verified-status').html(data.successful + ' images have been uploaded.<br /><'+'a href="https://www.eldoretraha.com/escort/b-nyaboe/">Refresh the page to see them<'+'/a>');
+			setTimeout(location.reload(), 2000);
+		}
+	});
+
+	//delete an image from the account
+	$('.girlsingle .thumbs .button-delete').on('click', function(){
+		var imgid = $(this).parents('.profile-img-thumb').attr('id');
+		if(!$('#'+imgid+' img').hasClass('video-image-th')) {
+			$('#'+imgid+' img').fadeTo('slow', 0.3).css('z-index', '0');
+		}
+		$('#'+imgid+' .edit-buttons').html('<div class="preloader r"><'+'/div>');
+		loader('#'+imgid+' .edit-buttons .preloader');
+		$.ajax({
+			type: "GET",
+			url: "https://www.eldoretraha.com/wp-content/themes/escortwpdev/ajax/delete-uploaded-image.php",
+			data: "id=" + imgid,
+			success: function(data){
+				if(isMobile) {
+					$('#'+imgid).css('height', $('#'+imgid).height()).html('<div class="image_msg_girl_single rad3">'+data+'<'+'/div>');
+				    $('#'+imgid).animate({ height: $('#'+imgid+' .image_msg_girl_single').height()}, 500);
+					setTimeout(function () {
+					    $('#'+imgid).parent().slideUp('fast', function() {
+					    	$(this).remove();
+					    });
+						window.scrollTo(0, ($(window).scrollTop() + 1)); //scroll the page just 1px so the other images showup
+					}, 2000);
+				} else {
+					$('#'+imgid+' .edit-buttons').html('<div class="image_msg_girl_single rad3">'+data+'<'+'/div>');
+					setTimeout(function () {
+						$('#'+imgid+' .edit-buttons').slideUp();
+					    $('#'+imgid).fadeOut('150');
+					}, 2000);
+				}
+				$('.profile-page-no-photos p.max-photos u').text(parseInt($('.profile-page-no-photos p.max-photos u').text()) + 1);
+			}
+		});
+	});
+
+	//mark an image as the main image
+	$('.girlsingle .thumbs .button-main-image').on('click', function(){
+		var imgid = $(this).parents('.profile-img-thumb').attr('id');
+		$('.girlsingle .thumbs .edit-buttons .button-main-image').show();
+		$('#'+imgid+' .edit-buttons .icon').hide();
+		if(!$('#'+imgid+' .edit-buttons .preloader').length) {
+			$('#'+imgid+' .edit-buttons').prepend('<div class="preloader r"><'+'/div>');
+		} else {
+			$('#'+imgid+' .edit-buttons .preloader').show();
+		}
+		loader('#'+imgid+' .edit-buttons .preloader');
+		$.ajax({
+			type: "GET",
+			url: "https://www.eldoretraha.com/wp-content/themes/escortwpdev/ajax/mark-as-main-image.php",
+			data: "id=" + imgid,
+			success: function(data){
+				var json = JSON.parse(data);
+				$('#'+imgid+' .edit-buttons .preloader').hide();
+				if(!$('#'+imgid+' .edit-buttons .image_msg_girl_single').length) {
+					$('#'+imgid+' .edit-buttons').prepend('<div class="image_msg_girl_single rad3"><'+'/div>');
+				} else {
+					$('#'+imgid+' .edit-buttons .image_msg_girl_single').show();
+				}
+				$('#'+imgid+' .edit-buttons .image_msg_girl_single').text(json.message);
+				setTimeout(function() {
+					$('#'+imgid+' .edit-buttons .image_msg_girl_single').fadeOut('slow', function() {
+						$('#'+imgid+' .edit-buttons .button-delete').fadeIn('slow');
+					});
+				}, 2000);
+			}
+		});
+	});
+	});
+</script>
+
+
+<div class="agency_options_delete agency_options_dropdowns text-center">
+	<div class="rad25 redbutton closebtn r"><span class="label">Close</span><span class="icon icon-cancel-circled r"></span></div>	<div class="clear10"></div>
+	<form action="https://www.eldoretraha.com/escort/b-nyaboe/" method="post" class="text-center">
+		Are you sure you want to delete your escort account?<div class="clear5"></div>
+		Deleted accounts can't be recovered.<div class="clear5"></div>
+		To completely delete the account click the button below:<div class="clear20"></div>
+		<input type="submit" name="submit" value="Delete escort b nyaboe" class="redbutton submitbutton rad25">
+		<input type="hidden" name="escortidtodelete" value="6103">
+		<input type="hidden" name="action" value="deleteescort">
+	</form>
+</div> <!-- DELETE -->
+
+<div class="agency_options_editprofile agency_options_dropdowns registerform">
+	<div class="rad25 redbutton closebtn r"><span class="label">Close</span><span class="icon icon-cancel-circled r"></span></div>	<div class="clear"></div>
+	<script type="text/javascript">
+jQuery(document).ready(function($) {
+	//check if the current user is already taken
+	$('#register_form #user').keyup(function(){
+		var user = $('#user').val();
+		var userlength = document.getElementById("user").value.length;
+		if(userlength >= 4 && userlength <= 30) {
+			$('.checkuser').empty();
+			$.ajax({
+				type: "GET",
+				url: "https://www.eldoretraha.com/wp-content/themes/escortwpdev/ajax/check-username.php",
+				data: "user=" + user,
+				success: function(data){
+					$('.checkuser').html(data);
+				}
+			});
+		};
+	});
+
+	check_availability();
+	$('#incall, #outcall').change(function() {
+		check_availability();
+	});
+	function check_availability() {
+		if($('#incall').is(":checked")) {
+			$(".hide-incall").show();
+		} else {
+			$(".hide-incall").hide();
+		}
+
+		if($('#outcall').is(":checked")) {
+			$(".hide-outcall").show();
+		} else {
+			$(".hide-outcall").hide();
+		}
+
+		if(!$('#incall').is(":checked") && !$('#outcall').is(":checked")) {
+			$(".hide-outcall, .hide-incall").show();
+		}
+	}
+
+	$('#register_form').on('submit', function(event) {
+		$('.register-form .form-input-accept-tos').removeClass('form-input-accept-tos-err');
+		if($('.register-form input[name="tos_accept"]').length && !$('.register-form input[name="tos_accept"]').is(':checked')) {
+			$('.register-form .form-input-accept-tos').addClass('form-input-accept-tos-err');
+			return false;
+		}
+
+		var button = $('#register_form #register_submit');
+		if(button.prop("disabled") === false) {
+			button.prop("disabled",true);
+			setTimeout(function() {
+				button.prop("disabled",false);
+			}, 4000);
+		}
+	});
+});
+</script>
+<!-- <form action="https://www.eldoretraha.com/escort/b-nyaboe/" method="post" class="form-styling register-form dropzone" id="register_form"> -->
+<form action="https://www.eldoretraha.com/escort/b-nyaboe/" method="post" class="form-styling register-form" id="register_form">
+	<small class="mandatory l">Fields marked with <i>*</i> are mandatory</small>
+	<div class="clear20"></div>
+	<input type="hidden" name="action" value="emails">
+	<input type="hidden" name="action" value="register">
+			<input type="hidden" name="escort_post_id" value="6103">
+				<input type="hidden" name="agencyid" value="894">
+
+
+
+
+	<div class="form-label">
+		<label class="with-help" for="yourname">Escort Name<i>*</i></label>
+		<small>will be publicly shown</small>
+	</div>
+	<div class="form-input">
+		<input type="text" name="yourname" id="yourname" class="input longinput" value="b nyaboe" required="">
+	</div> <!-- name --> <div class="formseparator"></div>
+
+
+		<div class="form-label">
+		<label for="phone">Phone<i>*</i></label>
+	</div>
+	<div class="form-input">
+				<select name="phone_code" id="phone_code" required="" tabindex="-1" class="select2-hidden-accessible" aria-hidden="true">
+						<option value="+355">+355</option>
+						<option value="+93">+93</option>
+						<option value="+213">+213</option>
+						<option value="+1-684">+1-684</option>
+						<option value="+376">+376</option>
+						<option value="+244">+244</option>
+						<option value="+1-264">+1-264</option>
+						<option value="+672">+672</option>
+						<option value="+1-268">+1-268</option>
+						<option value="+54">+54</option>
+						<option value="+374">+374</option>
+						<option value="+297">+297</option>
+						<option value="+61">+61</option>
+						<option value="+43">+43</option>
+						<option value="+994">+994</option>
+						<option value="+1-242">+1-242</option>
+						<option value="+973">+973</option>
+						<option value="+880">+880</option>
+						<option value="+1-246">+1-246</option>
+						<option value="+375">+375</option>
+						<option value="+32">+32</option>
+						<option value="+501">+501</option>
+						<option value="+229">+229</option>
+						<option value="+1-441">+1-441</option>
+						<option value="+975">+975</option>
+						<option value="+591">+591</option>
+						<option value="+387">+387</option>
+						<option value="+267">+267</option>
+						<option value="+55">+55</option>
+						<option value="+673">+673</option>
+						<option value="+359">+359</option>
+						<option value="+226">+226</option>
+						<option value="+257">+257</option>
+						<option value="+855">+855</option>
+						<option value="+237">+237</option>
+						<option value="+1">+1</option>
+						<option value="+238">+238</option>
+						<option value="+1-345">+1-345</option>
+						<option value="+236">+236</option>
+						<option value="+235">+235</option>
+						<option value="+56">+56</option>
+						<option value="+86">+86</option>
+						<option value="+53">+53</option>
+						<option value="+61">+61</option>
+						<option value="+57">+57</option>
+						<option value="+269">+269</option>
+						<option value="+243">+243</option>
+						<option value="+242">+242</option>
+						<option value="+682">+682</option>
+						<option value="+506">+506</option>
+						<option value="+225">+225</option>
+						<option value="+385">+385</option>
+						<option value="+53">+53</option>
+						<option value="+357">+357</option>
+						<option value="+420">+420</option>
+						<option value="+45">+45</option>
+						<option value="+253">+253</option>
+						<option value="+1-767">+1-767</option>
+						<option value="+1-809">+1-809</option>
+						<option value="+670">+670</option>
+						<option value="+593">+593</option>
+						<option value="+20">+20</option>
+						<option value="+503">+503</option>
+						<option value="+240">+240</option>
+						<option value="+291">+291</option>
+						<option value="+372">+372</option>
+						<option value="+251">+251</option>
+						<option value="+500">+500</option>
+						<option value="+298">+298</option>
+						<option value="+679">+679</option>
+						<option value="+358">+358</option>
+						<option value="+33">+33</option>
+						<option value="+594">+594</option>
+						<option value="+689">+689</option>
+						<option value="+241">+241</option>
+						<option value="+220">+220</option>
+						<option value="+995">+995</option>
+						<option value="+49">+49</option>
+						<option value="+233">+233</option>
+						<option value="+350">+350</option>
+						<option value="+30">+30</option>
+						<option value="+299">+299</option>
+						<option value="+1-473">+1-473</option>
+						<option value="+590">+590</option>
+						<option value="+1-671">+1-671</option>
+						<option value="+502">+502</option>
+						<option value="+224">+224</option>
+						<option value="+245">+245</option>
+						<option value="+592">+592</option>
+						<option value="+509">+509</option>
+						<option value="+504">+504</option>
+						<option value="+852">+852</option>
+						<option value="+36">+36</option>
+						<option value="+354">+354</option>
+						<option value="+91">+91</option>
+						<option value="+62">+62</option>
+						<option value="+98">+98</option>
+						<option value="+964">+964</option>
+						<option value="+353">+353</option>
+						<option value="+972">+972</option>
+						<option value="+39">+39</option>
+						<option value="+1-876">+1-876</option>
+						<option value="+81">+81</option>
+						<option value="+962">+962</option>
+						<option value="+7">+7</option>
+						<option value="+254" selected="">+254</option>
+						<option value="+686">+686</option>
+						<option value="+850">+850</option>
+						<option value="+82">+82</option>
+						<option value="+965">+965</option>
+						<option value="+996">+996</option>
+						<option value="+856">+856</option>
+						<option value="+371">+371</option>
+						<option value="+961">+961</option>
+						<option value="+266">+266</option>
+						<option value="+231">+231</option>
+						<option value="+218">+218</option>
+						<option value="+423">+423</option>
+						<option value="+370">+370</option>
+						<option value="+352">+352</option>
+						<option value="+853">+853</option>
+						<option value="+389">+389</option>
+						<option value="+261">+261</option>
+						<option value="+265">+265</option>
+						<option value="+60">+60</option>
+						<option value="+960">+960</option>
+						<option value="+223">+223</option>
+						<option value="+356">+356</option>
+						<option value="+692">+692</option>
+						<option value="+596">+596</option>
+						<option value="+222">+222</option>
+						<option value="+230">+230</option>
+						<option value="+269">+269</option>
+						<option value="+52">+52</option>
+						<option value="+691">+691</option>
+						<option value="+373">+373</option>
+						<option value="+377">+377</option>
+						<option value="+976">+976</option>
+						<option value="+1-664">+1-664</option>
+						<option value="+212">+212</option>
+						<option value="+258">+258</option>
+						<option value="+95">+95</option>
+						<option value="+264">+264</option>
+						<option value="+674">+674</option>
+						<option value="+977">+977</option>
+						<option value="+31">+31</option>
+						<option value="+599">+599</option>
+						<option value="+687">+687</option>
+						<option value="+64">+64</option>
+						<option value="+505">+505</option>
+						<option value="+227">+227</option>
+						<option value="+234">+234</option>
+						<option value="+683">+683</option>
+						<option value="+672">+672</option>
+						<option value="+1-670">+1-670</option>
+						<option value="+47">+47</option>
+						<option value="+968">+968</option>
+						<option value="+92">+92</option>
+						<option value="+680">+680</option>
+						<option value="+970">+970</option>
+						<option value="+507">+507</option>
+						<option value="+675">+675</option>
+						<option value="+595">+595</option>
+						<option value="+51">+51</option>
+						<option value="+63">+63</option>
+						<option value="+48">+48</option>
+						<option value="+351">+351</option>
+						<option value="+1-787">+1-787</option>
+						<option value="+974">+974</option>
+						<option value="+262">+262</option>
+						<option value="+40">+40</option>
+						<option value="+7">+7</option>
+						<option value="+250">+250</option>
+						<option value="+290">+290</option>
+						<option value="+1-869">+1-869</option>
+						<option value="+1-758">+1-758</option>
+						<option value="+508">+508</option>
+						<option value="+1-784">+1-784</option>
+						<option value="+685">+685</option>
+						<option value="+378">+378</option>
+						<option value="+239">+239</option>
+						<option value="+966">+966</option>
+						<option value="+221">+221</option>
+						<option value="+248">+248</option>
+						<option value="+232">+232</option>
+						<option value="+65">+65</option>
+						<option value="+421">+421</option>
+						<option value="+386">+386</option>
+						<option value="+677">+677</option>
+						<option value="+252">+252</option>
+						<option value="+27">+27</option>
+						<option value="+34">+34</option>
+						<option value="+94">+94</option>
+						<option value="+249">+249</option>
+						<option value="+597">+597</option>
+						<option value="+268">+268</option>
+						<option value="+46">+46</option>
+						<option value="+41">+41</option>
+						<option value="+963">+963</option>
+						<option value="+886">+886</option>
+						<option value="+992">+992</option>
+						<option value="+255">+255</option>
+						<option value="+66">+66</option>
+						<option value="+690">+690</option>
+						<option value="+676">+676</option>
+						<option value="+1-868">+1-868</option>
+						<option value="+216">+216</option>
+						<option value="+90">+90</option>
+						<option value="+993">+993</option>
+						<option value="+1-649">+1-649</option>
+						<option value="+688">+688</option>
+						<option value="+256">+256</option>
+						<option value="+380">+380</option>
+						<option value="+971">+971</option>
+						<option value="+44">+44</option>
+						<option value="+1">+1</option>
+						<option value="+598">+598</option>
+						<option value="+998">+998</option>
+						<option value="+678">+678</option>
+						<option value="+418">+418</option>
+						<option value="+58">+58</option>
+						<option value="+84">+84</option>
+						<option value="+1-284">+1-284</option>
+						<option value="+1-340">+1-340</option>
+						<option value="+681">+681</option>
+						<option value="+967">+967</option>
+						<option value="+260">+260</option>
+						<option value="+263">+263</option>
+					</select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-phone_code-container"><span class="select2-selection__rendered" id="select2-phone_code-container" title="+254">+254</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+				<input type="tel" name="phone" id="phone" class="input longinput" value="0700112233" style="width: 69%;">
+		<div class="clear"></div>
+	</div> <!-- phone --> <div class="formseparator"></div>
+
+	<div class="form-label">
+		<label for="phone">Available on</label>
+	</div>
+	<div class="form-input available-on">
+		<label for="whatsapp">
+			<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="phone_available_on[]" value="1" id="whatsapp" checked="" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_whatsapp" class="checkator_element checkbox checked"></div></div>
+			<span class="icon icon-whatsapp"></span> WhatsApp
+		</label>
+		<label for="viber">
+			<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="phone_available_on[]" value="2" id="viber" checked="" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_viber" class="checkator_element checkbox checked"></div></div>
+			<span class="icon icon-viber"></span> Viber
+		</label>
+	</div> <!-- phone --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="website">Website</label>
+	</div>
+	<div class="form-input">
+		<input type="url" name="website" id="website" class="input longinput" value="">
+	</div> <!-- website --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="instagram">Instagram</label>
+	</div>
+	<div class="form-input">
+		@ <input type="text" name="instagram" id="instagram" class="input" size="30" value="">
+		<small>Instagram username</small>
+	</div> <!-- instagram --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="snapchat">SnapChat</label>
+	</div>
+	<div class="form-input">
+		@ <input type="text" name="snapchat" id="snapchat" class="input" size="30" value="">
+		<small>Snapchat username</small>
+	</div> <!-- snapchat --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="twitter">Twitter</label>
+	</div>
+	<div class="form-input">
+		<input type="url" name="twitter" id="twitter" class="input longinput" placeholder="https://" value="">
+		<small>Twitter profile url</small>
+	</div> <!-- twitter --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="facebook">Facebook</label>
+	</div>
+	<div class="form-input">
+		<input type="url" name="facebook" id="facebook" class="input longinput" placeholder="https://" value="">
+		<small>Facebook profile/page url</small>
+	</div> <!-- facebook --> <div class="formseparator"></div>
+
+   		<div class="form-label">
+		<label for="country">Country<i>*</i></label>
+	</div>
+	<div class="form-input">
+		<select name="country" id="country" class="country select2 select2-hidden-accessible" tabindex="-1" aria-hidden="true">
+	<option value="-1">Select country</option>
+	<option class="level-0" value="194" selected="selected">Ahero</option>
+	<option class="level-0" value="190">Baringo</option>
+	<option class="level-0" value="188">Eldama Ravine</option>
+	<option class="level-0" value="2">Eldoret</option>
+	<option class="level-0" value="185">kabarnet</option>
+	<option class="level-0" value="109">Kakamega</option>
+	<option class="level-0" value="192">Kapenguria</option>
+	<option class="level-0" value="77">Kisumu Escorts</option>
+	<option class="level-0" value="133">Kitale</option>
+	<option class="level-0" value="193">Londiani</option>
+	<option class="level-0" value="189">Muhoroni</option>
+	<option class="level-0" value="184">Nandi</option>
+	<option class="level-0" value="191">Vihiga</option>
+	<option class="level-0" value="186">Webuye</option>
+</select><span class="select2 select2-container select2-container--default" dir="ltr" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-country-container"><span class="select2-selection__rendered" id="select2-country-container" title="Ahero">Ahero</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+    </div> <!-- country --> <div class="formseparator"></div>
+
+
+    <div class="form-label">
+		<label for="city">City <i>*</i></label>
+	</div>
+		<div class="form-input inputcities" data-text="Please select a country first">
+					<input type="text" name="city" id="city" class="input longinput" value="dallas">
+			</div> <!-- city --> <div class="formseparator"></div>
+
+	<div class="form-label">
+		<label>Gender<i>*</i></label>
+	</div>
+	<div class="form-input" id="gender">
+				<label for="gender1">
+			<div class="checkator_holder radio" style="width: 18px; height: 18px; margin: 3px 3px 0px 5px; float: none; display: inline-block;"><input type="radio" name="gender" value="1" id="gender1" checked="" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_gender1" class="checkator_element radio checked"></div></div>
+			Female<br>
+		</label>
+				<label for="gender2">
+			<div class="checkator_holder radio" style="width: 18px; height: 18px; margin: 3px 3px 0px 5px; float: none; display: inline-block;"><input type="radio" name="gender" value="2" id="gender2" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_gender2" class="checkator_element radio"></div></div>
+			Male<br>
+		</label>
+				<label for="gender4">
+			<div class="checkator_holder radio" style="width: 18px; height: 18px; margin: 3px 3px 0px 5px; float: none; display: inline-block;"><input type="radio" name="gender" value="4" id="gender4" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_gender4" class="checkator_element radio"></div></div>
+			Gay<br>
+		</label>
+			</div> <!-- GENDER --> <div class="formseparator"></div>
+
+	<div class="form-label">
+		<label class="with-help">Date of birth<i>*</i></label>
+		<small>we'll calculate your age from this</small>
+	</div>
+	<div class="form-input">
+		<select name="dateday" id="dateday" class="birthday select col33 l">
+			<option value="">Day</option>
+			<option value="1" selected="selected">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option>		</select>
+		<select name="datemonth" id="datemonth" class="birthday select col33 l">
+			<option value="">Month</option>
+			<option value="1">January</option>
+			<option value="2" selected="selected">February</option>
+			<option value="3">March</option>
+			<option value="4">April</option>
+			<option value="5">May</option>
+			<option value="6">June</option>
+			<option value="7">July</option>
+			<option value="8">August</option>
+			<option value="9">September</option>
+			<option value="10">October</option>
+			<option value="11">November</option>
+			<option value="12">December</option>
+		</select>
+		<select name="dateyear" id="dateyear" class="birthday select col33 l">
+			<option value="">Year</option>
+			<option value="2004">2004</option><option value="2003">2003</option><option value="2002">2002</option><option value="2001">2001</option><option value="2000">2000</option><option value="1999" selected="selected">1999</option><option value="1998">1998</option><option value="1997">1997</option><option value="1996">1996</option><option value="1995">1995</option><option value="1994">1994</option><option value="1993">1993</option><option value="1992">1992</option><option value="1991">1991</option><option value="1990">1990</option><option value="1989">1989</option><option value="1988">1988</option><option value="1987">1987</option><option value="1986">1986</option><option value="1985">1985</option><option value="1984">1984</option><option value="1983">1983</option><option value="1982">1982</option><option value="1981">1981</option><option value="1980">1980</option><option value="1979">1979</option><option value="1978">1978</option><option value="1977">1977</option><option value="1976">1976</option><option value="1975">1975</option><option value="1974">1974</option><option value="1973">1973</option><option value="1972">1972</option><option value="1971">1971</option><option value="1970">1970</option><option value="1969">1969</option><option value="1968">1968</option><option value="1967">1967</option><option value="1966">1966</option><option value="1965">1965</option><option value="1964">1964</option><option value="1963">1963</option><option value="1962">1962</option><option value="1961">1961</option><option value="1960">1960</option><option value="1959">1959</option><option value="1958">1958</option><option value="1957">1957</option><option value="1956">1956</option><option value="1955">1955</option><option value="1954">1954</option><option value="1953">1953</option><option value="1952">1952</option><option value="1951">1951</option><option value="1950">1950</option><option value="1949">1949</option><option value="1948">1948</option><option value="1947">1947</option><option value="1946">1946</option><option value="1945">1945</option><option value="1944">1944</option><option value="1943">1943</option><option value="1942">1942</option><option value="1941">1941</option><option value="1940">1940</option><option value="1939">1939</option><option value="1938">1938</option><option value="1937">1937</option><option value="1936">1936</option><option value="1935">1935</option><option value="1934">1934</option><option value="1933">1933</option><option value="1932">1932</option><option value="1931">1931</option><option value="1930">1930</option><option value="1929">1929</option><option value="1928">1928</option><option value="1927">1927</option><option value="1926">1926</option><option value="1925">1925</option><option value="1924">1924</option><option value="1923">1923</option><option value="1922">1922</option>		</select>
+	</div> <!-- DATE OF BIRTH --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="ethnicity">Ethnicity<i>*</i></label>
+	</div>
+	<div class="form-input">
+		<select name="ethnicity" id="ethnicity">
+			<option value="">Select</option>
+							<option value="1" selected="selected">Latin</option>
+							<option value="2">Caucasian</option>
+							<option value="3">Black</option>
+							<option value="4">White</option>
+							<option value="5">MiddleEast</option>
+							<option value="6">Asian</option>
+							<option value="7">Indian</option>
+							<option value="8">Aborigine</option>
+							<option value="9">Native American</option>
+							<option value="10">Other</option>
+					</select>
+	</div> <!-- SKIN COLOR --> <div class="formseparator"></div>
+
+
+
+		<div class="form-label">
+		<label for="bustsize">Bust size<i>*</i></label>
+		<small>mandatory only for females</small>
+	</div>
+	<div class="form-input">
+		<select name="bustsize" id="bustsize" class="bustsize">
+			<option value="">Select</option>
+							<option value="1">Very small</option>
+							<option value="2" selected="selected">Small(A)</option>
+							<option value="3">Medium(B)</option>
+							<option value="4">Large(C)</option>
+							<option value="5">Very Large(D)</option>
+							<option value="6">Enormous(E+)</option>
+					</select>
+	</div> <!-- BUST SIZE --> <div class="formseparator"></div>
+
+
+
+		<div class="form-label">
+		<label for="build">Build<i>*</i></label>
+	</div>
+	<div class="form-input">
+		<select name="build" id="build" class="build">
+			<option value="">Select</option>
+							<option value="1" selected="selected">Skinny</option>
+							<option value="2">Slim</option>
+							<option value="3">Regular</option>
+							<option value="4">Curvy</option>
+							<option value="5">Fat</option>
+					</select>
+	</div> <!-- BUILT --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="looks">Looks<i>*</i></label>
+	</div>
+	<div class="form-input">
+		<select name="looks" id="looks" class="looks">
+			<option value="">Select</option>
+							<option value="1">Nothing Special</option>
+							<option value="2" selected="selected">Average</option>
+							<option value="3">Sexy</option>
+							<option value="4">Ultra Sexy</option>
+					</select>
+	</div> <!-- LOOKS --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label>Availability<i>*</i></label>
+	</div>
+	<div class="form-input">
+		<label for="incall">
+			<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="availability[]" value="1" id="incall" checked="" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_incall" class="checkator_element checkbox checked"></div></div>
+			Incall		</label>
+		<label for="outcall">
+			<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="availability[]" value="2" id="outcall" checked="" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_outcall" class="checkator_element checkbox checked"></div></div>
+			Outcall		</label>
+	</div> <!-- AVAILABILITY --> <div class="formseparator"></div>
+
+
+		<div class="form-label">
+				<label for="aboutyou">About the escort<i>*</i></label>
+	</div>
+	<div class="form-input">
+		<textarea name="aboutyou" id="aboutyou" class="textarea longtextarea" rows="7" required="">hdhggsds</textarea>
+		<small>html code will be removed</small>
+	</div> <!-- about you --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="education">Education</label>
+	</div>
+	<div class="form-input">
+		<input type="text" name="education" id="education" class="input longinput" value="">
+	</div> <!-- education --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="sports">Sports</label>
+	</div>
+	<div class="form-input">
+		<input type="text" name="sports" id="sports" class="input longinput" value="">
+	</div> <!-- sports --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="hobbies">Hobbies</label>
+	</div>
+	<div class="form-input">
+		<input type="text" name="hobbies" id="hobbies" class="input longinput" value="">
+	</div> <!-- hobbies --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="zodiacsign">Zodiac sign</label>
+	</div>
+	<div class="form-input">
+		<input type="text" name="zodiacsign" id="zodiacsign" class="input longinput" value="">
+	</div> <!-- zodiac sign --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="sexualorientation">Sexual orientation</label>
+	</div>
+	<div class="form-input">
+		<input type="text" name="sexualorientation" id="sexualorientation" class="input longinput" value="">
+	</div> <!-- sexual orientation --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="occupation">Occupation</label>
+	</div>
+	<div class="form-input">
+		<input type="text" name="occupation" id="occupation" class="input longinput" value="">
+	</div> <!-- occupation --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label>Languages spoken</label>
+	</div>
+	<div class="form-input" id="language">
+		<input type="text" name="language1" class="input" value="">
+		<select name="language1level" id="language1level" class="language1level">
+			<option value="">Select level</option>
+						<option value="1">Minimal</option>
+						<option value="2">Conversational</option>
+						<option value="3">Fluent</option>
+					</select><div class="clear10"></div>
+
+		<input type="text" name="language2" class="input" value="">
+		<select name="language2level" id="language2level" class="language2level">
+			<option value="">Select level</option>
+						<option value="1">Minimal</option>
+						<option value="2">Conversational</option>
+						<option value="3">Fluent</option>
+					</select><div class="clear10"></div>
+
+		<input type="text" name="language3" class="input" value="">
+		<select name="language3level" id="language3level" class="language3level">
+			<option value="">Select level</option>
+						<option value="1">Minimal</option>
+						<option value="2">Conversational</option>
+						<option value="3">Fluent</option>
+					</select>
+	</div> <!-- language --> <div class="formseparator"></div>
+
+
+		<div class="form-label">
+		<label>Services<i>*</i></label>
+	</div>
+	<div class="form-input">
+					<div class="col50 one-service l">
+				<label for="service1">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="1" id="service1" checked="" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service1" class="checkator_element checkbox checked"></div></div>
+					OWO (Oral without condom)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service2">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="2" id="service2" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service2" class="checkator_element checkbox"></div></div>
+					O-Level (Oral sex)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service3">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="3" id="service3" checked="" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service3" class="checkator_element checkbox checked"></div></div>
+					CIM (Come in mouth)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service4">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="4" id="service4" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service4" class="checkator_element checkbox"></div></div>
+					COF (Come on face)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service5">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="5" id="service5" checked="" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service5" class="checkator_element checkbox checked"></div></div>
+					COB (Come on body)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service6">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="6" id="service6" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service6" class="checkator_element checkbox"></div></div>
+					Swallow				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service7">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="7" id="service7" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service7" class="checkator_element checkbox"></div></div>
+					DFK (Deep french kissing)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service8">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="8" id="service8" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service8" class="checkator_element checkbox"></div></div>
+					A-Level (Anal sex)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service9">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="9" id="service9" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service9" class="checkator_element checkbox"></div></div>
+					Anal Rimming (Licking anus)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service10">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="10" id="service10" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service10" class="checkator_element checkbox"></div></div>
+					69 (69 sex position)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service11">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="11" id="service11" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service11" class="checkator_element checkbox"></div></div>
+					Striptease/Lapdance				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service12">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="12" id="service12" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service12" class="checkator_element checkbox"></div></div>
+					Erotic massage				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service13">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="13" id="service13" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service13" class="checkator_element checkbox"></div></div>
+					Golden shower				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service14">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="14" id="service14" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service14" class="checkator_element checkbox"></div></div>
+					Couples				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service15">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="15" id="service15" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service15" class="checkator_element checkbox"></div></div>
+					GFE (Girlfriend experience)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service16">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="16" id="service16" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service16" class="checkator_element checkbox"></div></div>
+					Threesome				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service17">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="17" id="service17" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service17" class="checkator_element checkbox"></div></div>
+					Foot fetish				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service18">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="18" id="service18" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service18" class="checkator_element checkbox"></div></div>
+					Sex toys				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service19">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="19" id="service19" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service19" class="checkator_element checkbox"></div></div>
+					Extraball (Having sex multiple times)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service20">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="20" id="service20" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service20" class="checkator_element checkbox"></div></div>
+					Domination				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+					<div class="col50 one-service l">
+				<label for="service21">
+					<div class="checkator_holder checkbox" style="width: 18px; height: 18px; margin: 3px 3px 0px 4px; float: none; display: inline-block;"><input type="checkbox" name="services[]" value="21" id="service21" class="checkator_source" style="opacity: 0; margin: 0px;"><div id="checkator_service21" class="checkator_element checkbox"></div></div>
+					LT (Long Time; Usually overnight)				</label>
+				<div class="clear5"></div>
+			</div> <!-- one service -->
+			</div> <!-- SERVICES --> <div class="formseparator"></div>
+
+		<div class="form-label">
+		<label for="extraservices">Extra services</label>
+	</div>
+	<div class="form-input">
+		<input type="text" name="extraservices" id="extraservices" class="input longinput" value="">
+	</div> <!-- extra services --> <div class="formseparator"></div>
+		<!-- <div class="form-label">
+		<label for="upload_video">Upload Video</label>
+	</div>
+		<div class="form-input video_list">
+			</div> <div class="formseparator"></div> -->
+
+
+
+	<div class="text-center">
+		<input id="register_submit" type="submit" name="submit" value="Update Profile" class="pinkbutton rad25">
+	</div> <!--center-->
+</form></div> <!-- EDIT PROFILE -->
+
+<div class="agency_options_edittours agency_options_dropdowns managetours">
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	//delete a city tour
+	$('.tour .addedbuttons i').on('click', function(){
+		var id = $(this).text();
+		$('#tour'+id+' .addedbuttons').html('<b></b>');
+		$.ajax({
+			type: "GET",
+			url: "https://www.eldoretraha.com/wp-content/themes/escortwpdev/ajax/delete-tour.php",
+			data: "id=" + id,
+			success: function(data){
+				$('.deletemsg').html(data).fadeIn("slow").delay(1500).fadeOut("slow");
+				$('#tour'+id).slideUp("slow");
+			}
+		});
+	});
+
+	//edit a city tour
+	$('.tour .addedbuttons em').on("click", function(){
+		var id = $(this).text();
+		$('.editthetoursform').html('');
+		$('#tour'+id+' .addedbuttons em').hide('fast');
+		$('#tour'+id+' .addedbuttons').append('<b></b>');
+		$.ajax({
+			type: "GET",
+			url: "https://www.eldoretraha.com/wp-content/themes/escortwpdev/ajax/edit-tour.php",
+			data: "id=" + id + "&escort_id=6103&edit_tour_in_escort_page=yes",
+			success: function(data){
+				$('html,body').animate({ scrollTop: $('.body').offset().top }, { duration: 'slow', easing: 'swing'});
+				$('.girlsingle').hide('fast');
+				$('.editthetoursform').html(data);
+				$('.agency_options_edittours').slideDown();
+				$('#tour'+id+' .addedbuttons b').hide('fast');
+				$('#tour'+id+' .addedbuttons').append('<em>'+id+'</em>');
+				if($(window).width() > "960") { $('.select2').select2(); }
+			}
+		});
+	});
+
+	});
+</script>
+	<div class="rad25 redbutton closebtn r"><span class="label">Close</span><span class="icon icon-cancel-circled r"></span></div>	<div class="clear"></div>
+	    <div class="editthetoursform"></div>
+</div> <!-- EDIT TOUR -->
+
+
+<div class="agency_options_addtours agency_options_dropdowns managetours">
+	<div class="rad25 redbutton closebtn r"><span class="label">Close</span><span class="icon icon-cancel-circled r"></span></div>	<div class="clear"></div>
+	    <div class="addthetoursform">
+		<div class="ok rad25">Adding a tour will cost <span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">KSh</span>&nbsp;100.00</bdi></span><br>
+	Your tour will automatically be activated after you complete the payment</div><div class="clear20"></div>
+<link rel="stylesheet" href="./b nyaboe - Eldoret Raha - Top Eldoret VIP Escorts and Sexy Call girls in Kenya._files/jquery.ui.all.css">
+<link rel="stylesheet" href="./b nyaboe - Eldoret Raha - Top Eldoret VIP Escorts and Sexy Call girls in Kenya._files/jquery.ui.datepicker-custom.css">
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $( "#start" ).datepicker({
+		dateFormat: 'dd/mm/yy',
+		changeMonth: true,
+		changeYear: true,
+		constrainInput: true,
+		gotoCurrent: true,
+		minDate: 0,
+		firstDay: 1,
+		showButtonPanel: true,
+		onClose: function() {
+			var date = $(this).datepicker('getDate');
+			if (date){
+				date.setDate(date.getDate() + 1);
+				$("#end").datepicker( "option", "minDate", date ).focus();
+				$('.mobile-menu').hide('fast');
+			}
+		}
+	});
+    $( "#end" ).datepicker({
+		dateFormat: 'dd/mm/yy',
+		changeMonth: true,
+		changeYear: true,
+		constrainInput: true,
+		gotoCurrent: true,
+		//minDate: 0,
+		firstDay: 1,
+		showButtonPanel: true
+	});
+});
+</script>
+<form action="https://www.eldoretraha.com/escort/b-nyaboe/" method="post" class="form-styling add-tour-form" novalidate="">
+	<input type="hidden" name="action" value="addtour">
+
+   		<div class="form-label">
+		<label for="tourcountry">Country<i>*</i></label>
+	</div>
+	<div class="form-input">
+		<div class="clear10"></div><input type="hidden" name="tourcountry" class="tourcountry" value="">			<script type="text/javascript"> jQuery(document).ready(function($) { $('.add-tour-form .tourcountry, .add-tour-form2 .tourcountry').trigger('change'); }); </script>
+			    </div> <!-- tourcountry --> <div class="formseparator"></div>
+
+
+    <div class="form-label">
+		<label for="city">City <i>*</i></label>
+	</div>
+		<div class="form-input inputcities" data-text="Please select a country first">
+					<input type="text" name="tourcity" id="tourcity" class="input longinput" value="">
+			</div> <!-- city --> <div class="formseparator"></div>
+
+	<div class="form-label">
+		<label for="start">Start date <i>*</i></label>
+	</div>
+	<div class="form-input">
+				<input type="text" id="start" class="input ll-skin-melon hasDatepicker" name="start" value="" autocomplete="off">
+	</div> <!-- start date --> <div class="formseparator"></div>
+
+	<div class="form-label">
+		<label for="end">End date <i>*</i></label>
+	</div>
+	<div class="form-input">
+		<input type="text" id="end" class="input hasDatepicker" name="end" value="" autocomplete="off">
+	</div> <!-- end date --> <div class="formseparator"></div>
+
+	<div class="form-label">
+		<label for="tourphone">Phone <i>*</i></label>
+	</div>
+	<div class="form-input">
+				<input type="text" id="tourphone" class="input longinput" name="tourphone" value="">
+	</div> <!-- phone --> <div class="formseparator"></div>
+
+    <div class="clear10"></div>
+    <div class="text-center"><input type="submit" name="submit" value="Add Tour" class="pinkbutton center rad3"></div> <!--center-->
+</form>    </div>
+</div> <!-- EDIT TOUR -->
+
+
+<div class="agency_options_verified_status agency_options_dropdowns">
+	<h3 class="l settingspagetitle">Images you uploaded for verification:</h3>
+	<div class="rad25 redbutton closebtn r"><span class="label">Close</span><span class="icon icon-cancel-circled r"></span></div>	<div class="clear10"></div>
+
+
+	<div id="status-message-verified-status">
+		<div class="upload_photos_button r">
+			<div id="uploadifive-file_upload_verify" class="uploadifive-button pinkbutton rad25" style="line-height: 30px; overflow: hidden; position: relative; text-align: center;">Upload image<input class="hide" id="file_upload_verify" name="file_upload" type="file" style="display: none;"><input type="file" style="font-size: 30px; opacity: 0; position: absolute; right: -3px; top: -3px; z-index: 999;" accept="image/*"></div>
+		</div>
+		Increase the credibility of your account by submitting a verification photo.<br>
+		Please upload a photo of yourself holding a paper in your hands with the name of our website.<br>
+		All photos are private and will not be published!<br>
+		refresh the page to see newly uploaded images<br>
+		You can only upload 1 photo.    </div> <div class="clear"></div>
+
+	<div id="upload-queue-verified-status"></div>
+</div> <!-- VERIFIED STATUS -->		    <div class="girlsingle" itemscope="" itemtype="http://schema.org/Person">
+		    <div class="profile-header">
+		    	<div class="profile-header-name text-center l">
+			    	<h3 class="profile-title" title="b nyaboe" itemprop="name">b {{user.username}}</h3>
+			        <div class="girlsinglelabels">
+						<span class="pinkbutton rad25">NEW</span><span class="bluebutton rad25">PUBLIC</span>					</div> <!-- girlsinglelabels -->
+			    	<div class="online-status">
+				<span class="online-label">
+					<div class="notification-circle">
+						<span class="notification-circle-outside">
+							<span class="notification-circle-inside"></span>
+						</span>
+					</div>
+					<span class="text-label">Online</span>
+				</span>
+			</div>				</div> <!-- profile-header-name -->
+				<div class="profile-header-name-info rad5 r">
+										<div class="section-box"><span class="valuecolumn">{{user.age}}</span><b>years</b></div>
+				</div>
+											<div class="phone-box r">
+								<div class="label">call me</div>
+								<a class="" href="tel:{{user.phone}}" itemprop="telephone"><span class="icon icon-phone"></span>{{user.phone}}</a>
+							</div>
+														<div class="available-on r">
+								<div class="label">text me</div>
+								<a href="https://wa.me/{{user.phone}}?text=Hi%2C+I+saw+your+profile+on+https%3A%2F%2Fwww.jhigolo.com"><span class="icon icon-whatsapp"></span></a><a href="viber://chat?number={{user.phone}}"><span class="icon icon-viber"></span></a>							</div> <!-- available-on -->
+																	<div class="clear10"></div>
+			</div> <!-- profile-header -->
+
+										<div class="clear10"></div>
+				<div class="profile-page-no-media-wrapper profile-page-no-media-wrapper-photos  col50 l">
+					<div class="profile-page-no-media profile-page-no-photos profile-page-no-photos-click rad3 col100 text-center" id="profile-page-no-photos">
+						<div class="icon icon-picture"></div>
+						<div class="for-browsers" data-mobile-text="Tap here to upload your images">
+							<p>Drag your images here to upload them or <u>Select from a folder</u></p>
+						</div>
+						<p class="max-photos">You can upload a maximum of <b>20</b> images</p>
+						<div class="clear"></div>
+					</div>
+					<div class="profile_photos_button_container hide"><div id="uploadifive-profile_photos_upload" class="uploadifive-button pinkbutton rad25" style="line-height: 30px; overflow: hidden; position: relative; text-align: center;">Upload images<input id="profile_photos_upload" name="file_upload" type="file" style="display: none;"><input type="file" style="font-size: 30px; opacity: 0; position: absolute; right: -3px; top: -3px; z-index: 999;" multiple="multiple" accept="image/*"></div></div>
+				</div> <!-- profile-page-no-media-wrapper -->
+
+								<div class="profile-page-no-media-wrapper profile-page-no-media-wrapper-videos col50 r">
+					<div class="profile-page-no-media profile-page-no-videos profile-page-no-videos-click rad3 col100 text-center" id="profile-page-no-videos">
+						<div class="icon icon-film"></div>
+						<div class="for-browsers" data-mobile-text="Tap here to upload your videos">
+							<p>Drag your videos here to upload them or <u>Select from a folder</u></p>
+						</div>
+						<p class="max-videos">You can upload a maximum of <b>2</b> videos</p>
+						<div class="clear"></div>
+					</div>
+					<div class="profile_videos_button_container hide"><div id="uploadifive-profile_videos_upload" class="uploadifive-button pinkbutton rad25" style="line-height: 30px; overflow: hidden; position: relative; text-align: center;">Upload videos<input id="profile_videos_upload" name="file_upload" type="file" style="display: none;"><input type="file" style="font-size: 30px; opacity: 0; position: absolute; right: -3px; top: -3px; z-index: 999;" multiple="multiple" accept="video/*"></div></div>
+				</div> <!-- profile-page-no-media-wrapper -->
+								<div class="clear20"></div>
+
+
+						<div class="clear"></div>
+            <div class="aboutme">
+				<h4>About me:</h4>
+				<b>{{user.age}} year old <span itemprop="gender">{{user.gender}}</span> from <a href="https://www.jhigolo.com/escorts-from/ahero/dallas/" title="dallas">{{user.city}}</a>, <a href="" title="Ahero">{{user.country}}</a></b>
+				                <div class="clear5"></div>
+				{{user.about}}                <div class="clear"></div>
+			</div> <!-- ABOUT ME -->
+            <div class="clear10"></div>
+
+            <div class="girlinfo l">
+	            <div class="girlinfo-section">
+	            		                	                <div class="clear"></div>
+		        	<div class="section-box"><b>Availability</b>
+						<span class="valuecolumn">Incall, Outcall</span></div>
+					<div class="section-box"><b>Ethnicity</b><span class="valuecolumn">-</span></div>
+					<div class="section-box"><b>Height</b>
+						<span class="valuecolumn">{{user.height}}</span></div>
+					<div class="section-box"><b>Body Build</b><span class="valuecolumn">{{user.body}}</span></div>
+
+					<div class="section-box"><b>Looks</b>
+						<span class="valuecolumn">-</span></div>				</div> <!-- girlinfo-section -->
+
+
+				<div class="girlinfo-section">
+	                <h4>Contact info:</h4>
+	                <div class="clear"></div>
+	                <div class="contact">
+						<div itemprop="address" itemscope="" itemtype="http://schema.org/PostalAddress"><span class="b"><span class="b-label">City:</span></span><span class="valuecolumn"><a href="https://www.eldoretraha.com/escorts-from/ahero/dallas/" title="dallas" itemprop="addressLocality">{{user.city}}</a></span><div class="clear"></div><span class="b"><span class="b-label">Country:</span></span><span class="valuecolumn"><a href="https://www.eldoretraha.com/escorts-from/ahero/" title="Ahero" itemprop="country">{{user.country}}</a></span><div class="clear"></div></div>	            	            	            	            	<span class="b"><span class="b-label">Phone:</span></span><span class="valuecolumn"><a href="tel:{{user.phone}}" itemprop="telephone">{{user.phone}}</a></span>
+																<div class="clear"></div>
+	            	            	<span class="b"><span class="b-label">Text me:</span></span>
+	            	            	<span class="valuecolumn">
+										<div class="available-on">
+											<a class="" href="https://wa.me{{user.phone}}?text=Hi%2C+I+saw+your+profile+on+https%3A%2F%2Fwww.jhigolo.com"><span class="text-me-icon icon icon-whatsapp"></span></a><a href="viber://chat?number={{user.phone}}"><span class="icon text-me-icon icon-viber"></span></a>										</div> <!-- available-on -->
+	            	            	</span>
+
+
+	            	        	                            <div class="clear10"></div><a name="contactform"></a>
+								<div class="text-center"><div class="sendemail center rad25 pinkbutton"><span class="icon-mail"></span>Send me an email</div></div>
+								<div class="clear"></div>
+						<div class="escortcontact rad5 hide">
+	<div class="rad25 redbutton closebtn r"><span class="label">Close</span><span class="icon icon-cancel-circled r"></span></div>		    <form action="https://www.eldoretraha.com/escort/b-nyaboe/#contactform" method="post" class="form-styling">
+		    <input type="hidden" name="action" value="contactform">
+			<input type="text" name="emails" value="" class="hide">
+
+			<div class="form-label col100">
+				<label for="contactformmess">Message</label>
+				<small>Be sure to include your name and phone number</small>
+			</div>
+			<div class="form-input col100">
+								<textarea name="contactformmess" id="contactformmess" class="textarea col100" cols="8" rows="7"></textarea>
+			</div> <div class="formseparator"></div>
+
+
+		    <div class="text-center"><input type="submit" name="submit" value="Send message" class="pinkbutton rad3 center"></div>
+	    </form>
+	</div> <!-- contact form -->						</div> <!-- CONTACT -->
+				</div> <!-- girlinfo-section -->
+        	</div> <!-- girlinfo -->
+
+            <div class="girlinfo r">
+            		            	<div class="girlinfo-section">
+	            					            	<h4>Services:</h4>
+			                <div class="services">
+								<div><span class="icon-ok"></span>OWO (Oral without condom)</div><div><span class="icon-ok"></span>CIM (Come in mouth)</div><div><span class="icon-ok"></span>COB (Come on body)</div>			                </div> <!-- SERVICES -->
+
+
+							                </div> <!-- girlinfo-section -->
+
+								<div class="clear"></div>
+            </div> <!-- GIRL INFO RIGHT -->
+			<div class="clear20"></div>
+
+			<div class="visitor-counter">profile viewed <span class="count rad25">0</span> times</div>
+				<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('.report-profile-wrapper .report-profile-button').on('click', function(event) {
+			$(this).hide();
+			$(this).siblings('.report-profile-reason-wrapper').fadeIn('100', function (){
+				$('html, body').animate({ scrollTop: $('.report-profile-reason-wrapper').offset().top }, 150);
+			})
+		});
+		$('.report-profile-reason-wrapper .closebtn').on('click', function(event) {
+			$(this).parent().hide();
+			$(this).parent().siblings('.report-profile-button').show();
+		});
+
+		$('.report-profile-wrapper .submit-button').on('click', function(){
+			if($(this).hasClass('working')) {
+				return false;
+			} else {
+				$(this).addClass('working');
+			}
+
+			$('.report-profile-wrapper .err').remove();
+			var form = $('.report-profile-reason-form');
+			var profileid = form.find('.report-form-field-id').val();
+			var reason = form.find('.report-form-field-reason').val();
+			var recaptcha = "";
+						if(!reason) {
+				$('.report-profile-wrapper .report-profile-reason-form').prepend('<div class="err rad5">Please write a reason for your report</div>');
+				$(this).removeClass('working');
+				return false;
+			}
+			$.ajax({
+				type: "POST",
+				url: "https://www.eldoretraha.com/wp-content/themes/escortwpdev/ajax/send-profile-report.php",
+				data: { profileid: profileid, reason: reason, 'g-recaptcha-response': recaptcha },
+				cache: false,
+				timeout: 20000, // in milliseconds
+				success: function(raw_data) {
+					var data = JSON.parse(raw_data);
+					if(data.status == 'ok') {
+						$('.report-profile-wrapper').html('<div class="ok rad5">'+data.msg+'</div>');
+					} else {
+						$('.report-profile-wrapper .report-profile-reason-form').prepend('<div class="err rad5">'+data.msg+'</div>');
+					}
+					$(this).removeClass('working');
+				},
+				error: function(request, status, err) {
+					$(this).removeClass('working');
+				}
+			});
+		});
+	});
+	</script>
+	<div class="report-profile-wrapper">
+		<div class="report-profile-button rad25 redbutton"><span class="icon icon-report"></span>Report Profile</div>
+		<div class="clear"></div>
+		<div class="report-profile-reason-wrapper rad5">
+			<div class="rad25 redbutton closebtn r"><span class="label">Close</span><span class="icon icon-cancel-circled r"></span></div><div class="clear"></div>
+			<div class="report-profile-reason-form form-styling">
+		    	<input type="hidden" name="profile_id" class="report-form-field-id" value="6103">
+			    <div class="form-label col100">
+					<label for="reason">Write a short description for your report:</label>
+				</div>
+				<div class="form-input col100">
+			    	<input type="text" maxlength="300" name="reason" id="reason" class="report-form-field-reason input longinput col100" autocomplete="off">
+				</div> <!-- username -->
+			    				<button class="submit-button rad25 greenbutton"><span class="icon icon-report"></span> <span class="label-normal">Send report</span><span class="label-working">Sending</span></button>
+			</div><!-- report-profile-reason-form -->
+		</div><!-- report-profile-options -->
+	</div><!-- report-profile-wrapper -->
+	        </div> <!-- GIRL SINGLE -->
+	</div> <!-- BODY BOX -->
+
+    <div class="clear"></div>
+</div> <!-- BODY -->
+</div> <!-- contentwrapper -->
+
+<style>
+.country-list span.iconlocation{
+	display:none !important;
+}
+</style>
+<div class="sidebar-left l">
+	<div class="countries">
+    	<h4>Top local escort directories <i style="float: right;border: 1px solid #000;border-radius: 50%;font-style: normal;height: 30px;width: 30px;text-align: center;">+</i></h4>
+        <ul class="country-list">
+			<li><span class="iconlocation icon-minus">
+
+			</span>
+				<a href="" class="badge">
+                    <img style="vertical-align: middle;margin-right: 5px;border-radius: 50px;" height="22" width="22" src="" alt="">
+                     <span style="vertical-align: middle;">kk</span>
+				</a>
+			</li>
+
+			        </ul>
+		<div class="clear"></div>
+	</div> <!-- COUNTRIES -->
+	<div class="countries">
+
+	</div> <!-- COUNTRIES -->
+	<div class="clear"></div>
+
+
+	</div> <!-- SIDEBAR LEFT --><div class="sidebar-right">
+<div class="ok">This profile is currently set to public.<br>This website requires all profiles to be manually activated by an admin.</div>
+	<div class="sidebar-expire-notice center">
+		<div class="clear10"></div>
+		<form action="" class="cart" method="post" enctype="multipart/form-data"><input type="hidden" name="add-to-cart" value="5886"><input type="hidden" name="order_for_id" value="6103">
+
+
+
+
+
+			<div class="orangebutton buyfeatured">Buy VIP Position<br><span class="show-price rad3 greendegrade"><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">COMING</span>&nbsp;SOON!</bdi></span></span></div>
+			<div class="buyfeatured_details blueishdegrade">
+				<div class="closebtn_box rad25"><span class="icon icon-cancel-circled"></span></div>				VIP escorts will always be shown second and before any normal escorts, in all the pages of the site.<br>Your vip status will be active for <strong>1 month</strong> 				<div class="clear10"></div>
+				<form action="https://www.eldoretraha.com/checkout/" class="cart" method="post" enctype="multipart/form-data"><input type="hidden" name="add-to-cart" value="5890"><input type="hidden" name="order_for_id" value="6103"><button type="submit" class="greenbutton payment-button rad25">Pay now</button></form>				<div class="clear5"></div>
+				<small><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">KSh</span>&nbsp;3,000.00</bdi></span> for 1 month<br>one time payment</small>
+			</div> <!-- BUY FEATURED -->
+			<div class="clear"></div>
+		</div>
+		<div class="dropdownlinks dropdownlinks-dropdown dropdownlinks-profile">
+    	<h4><span class="icon icon-menu"></span>My Account</h4>
+        <ul>
+			<li><a href="#"><span class="icon icon-star-empty"></span> View my Profile</a></li>
+			<li><a href="#"><span class="icon icon-pencil"></span> Edit my Profile</a></li>
+						<li class="woocommerce-MyAccount-navigation-link woocommerce-MyAccount-navigation-link--orders">
+				<a href="#"><span class="icon icon-dollar"></span> My Payments</a>
+			</li>
+								<li>Other edit links will be shown after payment</li>
+		            <li><a href="javascript:{document.getElementById('logout').submit()}"><span class="icon icon-logout"></span> Log Out</a>
+
+					<form action="{% url 'logout' %}" method="POST" id="logout">
+                {% csrf_token %}
+                <input type="hidden">
+              </form>
+					</li>
+                </ul>
+	    <div class="clear"></div>
+	</div> <!-- profile my account -->
+    <div class="clear"></div>
+
+
+
+
+</div> <!-- SIDEBAR RIGHT --><div class="clear"></div>
+	<div class="clear10"></div>
+
+
+{% endblock %}

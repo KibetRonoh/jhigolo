@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="all all-body">
+
+    <div class="contentwrapper">
+        <div class="body">
+            <div class="bodybox">
+                <h3>Independent Escort Registration</h3>
+                <script type="text/javascript">
+jQuery(document).ready(function($) {
+	//check if the current user is already taken
+	$('#register_form #user').keyup(function(){
+		var user = $('#user').val();
+		var userlength = document.getElementById("user").value.length;
+		if(userlength >= 4 && userlength <= 30) {
+			$('.checkuser').empty();
+			$.ajax({
+				type: "GET",
+				url: "https://www.eldoretraha.com/wp-content/themes/escortwpdev/ajax/check-username.php",
+				data: "user=" + user,
+				success: function(data){
+					$('.checkuser').html(data);
+				}
+			});
+		};
+	});
+
+	check_availability();
+	$('#incall, #outcall').change(function() {
+		check_availability();
+	});
+	function check_availability() {
+		if($('#incall').is(":checked")) {
+			$(".hide-incall").show();
+		} else {
+			$(".hide-incall").hide();
+		}
+
+		if($('#outcall').is(":checked")) {
+			$(".hide-outcall").show();
+		} else {
+			$(".hide-outcall").hide();
+		}
+
+		if(!$('#incall').is(":checked") && !$('#outcall').is(":checked")) {
+			$(".hide-outcall, .hide-incall").show();
+		}
+	}
+
+	$('#register_form').on('submit', function(event) {
+		$('.register-form .form-input-accept-tos').removeClass('form-input-accept-tos-err');
+		if($('.register-form input[name="tos_accept"]').length && !$('.register-form input[name="tos_accept"]').is(':checked')) {
+			$('.register-form .form-input-accept-tos').addClass('form-input-accept-tos-err');
+			return false;
+		}
+
+		var button = $('#register_form #register_submit');
+		if(button.prop("disabled") === false) {
+			button.prop("disabled",true);
+			setTimeout(function() {
+				button.prop("disabled",false);
+			}, 4000);
+		}
+	});
+});
+
+                </script>
+                <!-- <form action="https://www.eldoretraha.com/escort-registration/" method="post" class="form-styling register-form dropzone" id="register_form"> -->
+                <form action="{% url 'register' %}" method="POST"
+                      class="form-styling register-form">
+                     {% csrf_token %}
+                    <small class="mandatory l">Fields marked with <i>*</i> are mandatory</small>
+                    <div class="clear20"></div>
+                    <input type="hidden" name="first_name" value="first_name"/>
+                    <input type="hidden" name="last_name" value="last_name"/>
+
+                    <div class="form-label">
+                        <label class="with-help">Username<i>*</i></label>
+                        <small class="checkuser">Between 4 and 30 characters</small>
+                    </div>
+                    <div class="form-input">
+                        <input type="text" name="username"class="input longinput" minlength="4" maxlength="30"
+                               value="" required/>
+                    </div> <!-- username -->
+                    <div class="formseparator"></div>
+
+                    <div class="form-label">
+                        <label class="with-help">Password<i>*</i></label>
+                        <small>Must be between 6 and 30 characters</small>
+                    </div>
+                    <div class="form-input">
+                        <input type="password" name="password" class="input longinput" minlength="6"
+                               maxlength="30" value="" required autocomplete="off"/>
+                    </div> <!-- password -->
+                    <div class="formseparator"></div>
+
+                    <div class="form-label">
+                        <label class="with-help">Confirm Password<i>*</i></label>
+                        <small>Must be between 6 and 30 characters</small>
+                    </div>
+                    <div class="form-input">
+                        <input type="password" name="password2" class="input longinput" minlength="6"
+                               maxlength="30" value="" required autocomplete="off"/>
+                    </div> <!-- password -->
+                    <div class="formseparator"></div>
+
+                    <div class="form-label">
+                        <label>Your Email<i>*</i></label>
+                    </div>
+                    <div class="form-input">
+                        <input type="email" name="email" class="input longinput" value="" required/>
+                    </div> <!-- email -->
+                    <div class="formseparator"></div>
+
+
+                    <div class="form-label">
+                        <label class="with-help">Age<i>*</i></label>
+                        <small class="checkuser">Your Age</small>
+                    </div>
+                    <div class="form-input">
+                        <input type="number" name="age" class="input longinput"  required/>
+                    </div> <!-- username -->
+                    <div class="formseparator"></div>
+
+                    <div class="form-label">
+                        <label class="with-help">Phone Number<i>*</i></label>
+                    </div>
+                    <div class="form-input">
+                        <input type="text" name="phone" class="input longinput" placeholder="E.g  +254 702 123 456" style="width: 69%;"  required/>
+                    </div> <!-- username -->
+                    <div class="formseparator"></div>
+
+
+
+                    <div class="formseparator"></div>
+
+
+                    <div class="form-label">
+                        <label>Country <i>*</i></label>
+                    </div>
+                    <div class="form-input inputcities" data-text="Please select a country first">
+                        <input type="text" name="country" class="input longinput" value=""/>
+                    </div> <!-- city -->
+                    <div class="formseparator"></div>
+
+                    <div class="form-label">
+                        <label>City <i>*</i></label>
+                    </div>
+                    <div class="form-input inputcities" data-text="Please select a country first">
+                        <input type="text" name="city" class="input longinput" value=""/>
+                    </div> <!-- city -->
+                    <div class="formseparator"></div>
+
+                    <div class="form-label">
+                        <label class="with-help">Location<i>*</i></label>
+                        <small class="checkuser">Town/Village/Estate.. etc</small>
+                    </div>
+                    <div class="form-input">
+                        <input type="text" name="location" class="input longinput" minlength="4" maxlength="30"
+                               value="" required/>
+                    </div> <!-- username -->
+                    <div class="formseparator"></div>
+
+                    <div class="form-label">
+                        <label>Gender<i>*</i></label>
+                    </div>
+                    <div class="form-input" id="gender">
+                        <label>
+                            <input type="radio" name="gender" value="Female"/>
+                            Female<br/>
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Male"/>
+                            Male<br/>
+                        </label>
+                        <label>
+                            <input type="radio" name="gender" value="Gay"/>
+                            Gay<br/>
+                        </label>
+                    </div> <!-- GENDER -->
+                    <div class="formseparator"></div>
+                    
+                    <div class="form-label">
+                        <label>Body Build<i>*</i></label>
+                    </div>
+                    <div class="form-input">
+                        <select name="body" class="build">
+                            <option value="">Select</option>
+                            <option value="Skinny">Skinny</option>
+                            <option value="Slim">Slim</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Curvy">Curvy</option>
+                            <option value="Fat">Fat</option>
+                        </select>
+                    </div> <!-- BUILT -->
+                    <div class="formseparator"></div>
+
+                    <div class="form-label">
+                        <label>Height<i>*</i></label>
+                    </div>
+                    <div class="form-input">
+                        <select name="height" class="build">
+                            <option value="">Select</option>
+                            <option value="Short">Short</option>
+                            <option value="Tall">Tall</option>
+                            <option value="Regular">Regular</option>
+                            <option value="Midget/Dwarf">Midget/Dwarf</option>
+                        </select>
+                    </div> <!-- BUILT -->
+                    <div class="formseparator"></div>
+
+                    <div class="form-label">
+                        <label class="with-help">Incall Price<i>*</i></label>
+                    </div>
+                    <div class="form-input">
+                        <input type="number" name="incall_price"class="input longinput" style="width: 69%;"  required/>
+                    </div> <!-- username -->
+
+
+
+                    <div class="formseparator"></div>
+                   <div class="form-label">
+                        <label class="with-help">Outcall Price<i>*</i></label>
+                    </div>
+                    <div class="form-input">
+                        <input type="number" name="outcall_price" class="input longinput" style="width: 69%;"  required/>
+                    </div> <!-- username -->
+                    <div class="formseparator"></div>
+
+
+
+                    <div class="form-label">
+                        <label>About you<i>*</i></label>
+                    </div>
+                    <div class="form-input">
+                        <textarea name="about" class="textarea longtextarea" rows="7"
+                                  required></textarea>
+                        <small>html code will be removed</small>
+                    </div> <!-- about you -->
+
+                    <div class="formseparator"></div>
+
+
+
+
+
+                    <div class="formseparator"></div>
+                    <!-- <div class="form-label">
+                    <label for="upload_video">Upload Video</label>
+                </div>
+                    <div class="form-input video_list">
+                        </div> <div class="formseparator"></div> -->
+
+
+                    <div class="formseparator"></div>
+                    <div class="form-input col100 center form-input-accept-tos">
+                        <label for="tos_checkbox" class="rad25">
+                            <input type="checkbox" id="tos_checkbox"/>
+                            I agree with the <a href="index.html" target="_blank">Independent Escort Registration</a>
+                            and the <a href="index.html" target="_blank">Independent Escort Registration</a> of this
+                            website </label>
+                    </div> <!-- message -->
+                    <div class="clear15"></div>
+
+                    <div class="text-center">
+                        <input id="register_submit" type="submit" name="submit" value="Complete Registration"
+                               class="pinkbutton rad25"/>
+                    </div> <!--center-->
+                </form>
+
+                {% endblock %}
